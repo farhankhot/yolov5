@@ -671,7 +671,7 @@ class Detections:
         self.t = tuple(x.t / self.n * 1E3 for x in times)  # timestamps (ms)
         self.s = shape  # inference BCHW shape
 
-    def display(self, pprint=False, show=False, save=False, crop=False, render=False, labels=True, save_dir=Path(''), box_coord = None, jersey_number=None):
+    def display(self, pprint=False, show=False, save=False, crop=False, render=False, labels=True, save_dir=Path(''), box_coord = None, jersey_number=None, my_box=None):
         crops = []
         for i, (im, pred) in enumerate(zip(self.ims, self.pred)):
             print("pred just after for loop", pred)
@@ -697,9 +697,9 @@ class Detections:
                                 'im': save_one_box(box, im, file=file, save=save)})
 
                         elif box_coord is not None:
-                            print("dummy")
-##                            annotator = Annotator(im, example=str(self.names))
-##                            annotator.box_label(box, jersey_number, color=colors(cls))
+##                            print("dummy")
+                            annotator = Annotator(im, example=str(self.names))
+                            annotator.box_label(my_box, jersey_number, color=colors(cls))
 
                         
                         else:  # all others
@@ -728,9 +728,9 @@ class Detections:
                 LOGGER.info(f'Saved results to {save_dir}\n')
             return crops
 
-    def my_box_and_label(self, jersey_number, save_dir='runs/detect/my'):
+    def my_box_and_label(self, jersey_number, my_box, save_dir='runs/detect/my'):
         save_dir = increment_path(save_dir, exist_ok=save_dir != 'runs/detect/my', mkdir=True)  # increment save_dir
-        self.display(save=True, box_coord = 1, save_dir=save_dir, jersey_number=jersey_number)      
+        self.display(save=True, box_coord = 1, save_dir=save_dir, jersey_number=jersey_number, my_box=my_box)      
     
     def print(self):
         self.display(pprint=True)  # print results
