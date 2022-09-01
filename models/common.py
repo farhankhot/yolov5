@@ -694,6 +694,7 @@ class Detections:
                                 'conf': conf,
                                 'cls': cls,
                                 'label': label,
+                                'file': file,
                                 'im': save_one_box(box, im, file=file, save=save)})
 
                         elif box_coord is not None:
