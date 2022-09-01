@@ -671,7 +671,7 @@ class Detections:
         self.t = tuple(x.t / self.n * 1E3 for x in times)  # timestamps (ms)
         self.s = shape  # inference BCHW shape
 
-    def display(self, pprint=False, show=False, save=False, crop=False, render=False, labels=True, save_dir=Path(''), box_coord = None):
+    def display(self, pprint=False, show=False, save=False, crop=False, render=False, labels=True, save_dir=Path(''), box_coord = None, jersey_number=None):
         crops = []
         for i, (im, pred) in enumerate(zip(self.ims, self.pred)):
             s = f'image {i + 1}/{len(self.pred)}: {im.shape[0]}x{im.shape[1]} '  # string
@@ -697,7 +697,7 @@ class Detections:
 
                         if box_coord is not None:
                             annotator = Annotator(im, example=str(self.names))
-                            annotator.box_label(box, "blah", color=colors(cls))
+                            annotator.box_label(box, jersey_number, color=colors(cls))
 
                     im = annotator.im
                 
@@ -721,9 +721,9 @@ class Detections:
                 LOGGER.info(f'Saved results to {save_dir}\n')
             return crops
 
-    def my_box_and_label(self, save_dir='runs/detect/my'):
+    def my_box_and_label(self, save_dir='runs/detect/my', jersey_number):
         save_dir = increment_path(save_dir, exist_ok=save_dir != 'runs/detect/my', mkdir=True)  # increment save_dir
-        self.display(save=True, box_coord = 1, save_dir=save_dir)      
+        self.display(save=True, box_coord = 1, save_dir=save_dir, jersey_number=jersey_number)      
     
     def print(self):
         self.display(pprint=True)  # print results
