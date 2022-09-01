@@ -689,13 +689,14 @@ class Detections:
                         # label = "yay"
                         if crop:
                             file = save_dir / 'crops' / self.names[int(cls)] / self.files[i] if save else None
+                            crop_file_name, save_one_box_crop = save_one_box(box, im, file=file, save=save)
                             crops.append({
                                 'box': box,
                                 'conf': conf,
                                 'cls': cls,
                                 'label': label,
-                                'file': self.files[i],
-                                'im': save_one_box(box, im, file=file, save=save)})
+                                'crop file': crop_file_name,
+                                'im': save_one_box_crop})
 
                         elif box_coord is not None:
 ##                            print("dummy")
