@@ -674,6 +674,8 @@ class Detections:
     def display(self, pprint=False, show=False, save=False, crop=False, render=False, labels=True, save_dir=Path(''), box_coord = None, jersey_number=None):
         crops = []
         for i, (im, pred) in enumerate(zip(self.ims, self.pred)):
+            print("pred just after for loop", pred)
+
             s = f'image {i + 1}/{len(self.pred)}: {im.shape[0]}x{im.shape[1]} '  # string
             if pred.shape[0]:
                 for c in pred[:, -1].unique():
@@ -682,6 +684,7 @@ class Detections:
                 if show or save or render or crop:
                     annotator = Annotator(im, example=str(self.names))
                     for *box, conf, cls in reversed(pred):  # xyxy, confidence, class
+                        print("box", box)
                         label = f'{self.names[int(cls)]} {conf:.2f}'
                         # label = "yay"
                         if crop:
