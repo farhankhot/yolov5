@@ -697,8 +697,8 @@ class Detections:
                     im = annotator.im
                 
                 if box_coord is not None:
-									annotator = Annotator(im, example=str(self.names))
-									annotator.box_label(box, "blah", color=colors(cls))
+								  annotator = Annotator(im, example=str(self.names))
+								  annotator.box_label(box, "blah", color=colors(cls))
             else:
                 s += '(no detections)'
 
