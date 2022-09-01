@@ -680,8 +680,8 @@ class Detections:
                     n = (pred[:, -1] == c).sum()  # detections per class
                     s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  # add to string
                 if show or save or render or crop:
-              		annotator = Annotator(im, example=str(self.names))
-                  # annotator = Annotator(im, example=str(self.names))
+              			annotator = Annotator(im, example=str(self.names))
+                  	# annotator = Annotator(im, example=str(self.names))
                     for *box, conf, cls in reversed(pred):  # xyxy, confidence, class
                         label = f'{self.names[int(cls)]} {conf:.2f}'
                         # label = "yay"
@@ -698,9 +698,8 @@ class Detections:
                     im = annotator.im
                 
                 if box_coord is not None:
-        					annotator = Annotator(im, example=str(self.names))
-				        	annotator.box_label(box_coord, "blah" if labels else '', color=colors(cls))
-					        print("i am running")
+										annotator = Annotator(im, example=str(self.names))
+										annotator.box_label(box, "blah", color=colors(cls))
             else:
                 s += '(no detections)'
 
@@ -721,8 +720,8 @@ class Detections:
                 LOGGER.info(f'Saved results to {save_dir}\n')
             return crops
 
-    def my_box_and_label(box_coord):
-        self.display(box_coord = box_coord)      
+    def my_box_and_label(self):
+        self.display()      
     
     def print(self):
         self.display(pprint=True)  # print results
