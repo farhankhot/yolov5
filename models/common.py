@@ -720,7 +720,7 @@ class Detections:
             return crops
 
     def my_box_and_label(self):
-        self.display()      
+        self.display(box_coord = 1)      
     
     def print(self):
         self.display(pprint=True)  # print results
