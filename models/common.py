@@ -681,10 +681,10 @@ class Detections:
                     s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  # add to string
                 if show or save or render or crop:
               		annotator = Annotator(im, example=str(self.names))
-# 					annotator = Annotator(im, example=str(self.names))
+                  # annotator = Annotator(im, example=str(self.names))
                     for *box, conf, cls in reversed(pred):  # xyxy, confidence, class
                         label = f'{self.names[int(cls)]} {conf:.2f}'
-#                         label = "yay"
+                        # label = "yay"
                         if crop:
                             file = save_dir / 'crops' / self.names[int(cls)] / self.files[i] if save else None
                             crops.append({
@@ -698,9 +698,9 @@ class Detections:
                     im = annotator.im
                 
                 if box_coord is not None:
-					annotator = Annotator(im, example=str(self.names))
-					annotator.box_label(box_coord, "blah" if labels else '', color=colors(cls))
-					print("i am running")
+        					annotator = Annotator(im, example=str(self.names))
+				        	annotator.box_label(box_coord, "blah" if labels else '', color=colors(cls))
+					        print("i am running")
             else:
                 s += '(no detections)'
 
