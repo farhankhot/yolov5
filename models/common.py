@@ -699,6 +699,9 @@ class Detections:
                 if box_coord is not None:
                     annotator = Annotator(im, example=str(self.names))
                     annotator.box_label(box, "blah", color=colors(cls))
+                    im = Image.fromarray(im.astype(np.uint8)) if isinstance(im, np.ndarray) else im
+                    f = self.files[i]
+                    im.save("my stuff" / f)
             else:
                 s += '(no detections)'
 
