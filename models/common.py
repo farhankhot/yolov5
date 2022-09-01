@@ -671,7 +671,7 @@ class Detections:
         self.t = tuple(x.t / self.n * 1E3 for x in times)  # timestamps (ms)
         self.s = shape  # inference BCHW shape
 
-    def display(self, pprint=False, show=False, save=False, crop=False, render=False, labels=True, save_dir=Path('')):
+    def display(self, pprint=False, show=False, save=False, crop=False, render=False, labels=True, save_dir=Path(''), box_coord = None):
         crops = []
         for i, (im, pred) in enumerate(zip(self.ims, self.pred)):
             s = f'image {i + 1}/{len(self.pred)}: {im.shape[0]}x{im.shape[1]} '  # string
@@ -680,10 +680,11 @@ class Detections:
                     n = (pred[:, -1] == c).sum()  # detections per class
                     s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  # add to string
                 if show or save or render or crop:
-                    annotator = Annotator(im, example=str(self.names))
+              		annotator = Annotator(im, example=str(self.names))
+# 					annotator = Annotator(im, example=str(self.names))
                     for *box, conf, cls in reversed(pred):  # xyxy, confidence, class
-#                         label = f'{self.names[int(cls)]} {conf:.2f}'
-                        label = "yay"
+                        label = f'{self.names[int(cls)]} {conf:.2f}'
+#                         label = "yay"
                         if crop:
                             file = save_dir / 'crops' / self.names[int(cls)] / self.files[i] if save else None
                             crops.append({
@@ -695,6 +696,11 @@ class Detections:
                         else:  # all others
                             annotator.box_label(box, label if labels else '', color=colors(cls))
                     im = annotator.im
+                
+                if box_coord is not None:
+					annotator = Annotator(im, example=str(self.names))
+					annotator.box_label(box_coord, "blah" if labels else '', color=colors(cls))
+					print("i am running")
             else:
                 s += '(no detections)'
 
@@ -715,6 +721,9 @@ class Detections:
                 LOGGER.info(f'Saved results to {save_dir}\n')
             return crops
 
+    def my_box_and_label(box_coord):
+        self.display(box_coord = box_coord)      
+    
     def print(self):
         self.display(pprint=True)  # print results
         print(f'Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {tuple(self.s)}' % self.t)
