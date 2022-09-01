@@ -696,7 +696,8 @@ class Detections:
                                 'label': label,
                                 'im': save_one_box(box, im, file=file, save=save)})
 
-##                        elif box_coord is not None:
+                        elif box_coord is not None:
+                            print("dummy")
 ##                            annotator = Annotator(im, example=str(self.names))
 ##                            annotator.box_label(box, jersey_number, color=colors(cls))
 
