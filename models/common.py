@@ -698,9 +698,6 @@ class Detections:
                         if box_coord is not None:
                             annotator = Annotator(im, example=str(self.names))
                             annotator.box_label(box, "blah", color=colors(cls))
-                            im = Image.fromarray(im.astype(np.uint8)) if isinstance(im, np.ndarray) else im
-                            f = self.files[i]
-                            im.save("my stuff" / f)
 
                     im = annotator.im
                 
@@ -724,8 +721,8 @@ class Detections:
                 LOGGER.info(f'Saved results to {save_dir}\n')
             return crops
 
-    def my_box_and_label(self):
-        self.display(box_coord = 1)      
+    def my_box_and_label(self, save_dir='runs/detect/my'):
+        self.display(save=True, box_coord = 1, save_dir=save_dir)      
     
     def print(self):
         self.display(pprint=True)  # print results
