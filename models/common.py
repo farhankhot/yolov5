@@ -722,6 +722,7 @@ class Detections:
             return crops
 
     def my_box_and_label(self, save_dir='runs/detect/my'):
+        save_dir = increment_path(save_dir, exist_ok=save_dir != 'runs/detect/my', mkdir=True)  # increment save_dir
         self.display(save=True, box_coord = 1, save_dir=save_dir)      
     
     def print(self):
