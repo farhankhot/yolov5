@@ -732,7 +732,7 @@ class Detections:
 
     def my_box_and_label(self, jersey_number, my_box, save_dir='runs/detect/my'):
         save_dir = increment_path(save_dir, exist_ok=save_dir != 'runs/detect/my', mkdir=True)  # increment save_dir
-        self.display(save=False, box_coord = 1, save_dir=save_dir, jersey_number=jersey_number, my_box=my_box)      
+        self.display(save=True, box_coord = 1, save_dir=save_dir, jersey_number=jersey_number, my_box=my_box)      
     
     def print(self):
         self.display(pprint=True)  # print results
